@@ -21,6 +21,8 @@ namespace Errander.Models
         public DateTime NeededBy { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string AcceptingUserID { get; set; }
-
+        
+        public double Rating { get; set; }
+        public DateTime? CompletionTime { get; set; }
     }
 }

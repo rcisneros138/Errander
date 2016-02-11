@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Errander.Models.Errand>
+﻿@model IEnumerable<Errander.Models.TableViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -9,11 +9,12 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+
+<div>
+
+<table class="table table table-striped">
     <tr>
-        @*<th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>*@
+       
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -26,12 +27,7 @@
         <th>
             @Html.DisplayNameFor(model => model.City)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.IsCompleted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InProgress)
-        </th>*@
+       
         <th>
             @Html.DisplayNameFor(model => model.AmountOffered)
         </th>
@@ -43,9 +39,7 @@
 
 @foreach (var item in Model) {
     <tr>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>*@
+      
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
@@ -58,12 +52,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.City)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.IsCompleted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InProgress)
-        </td>*@
+     
         <td>
             $@Html.DisplayFor(modelItem => item.AmountOffered)
         </td>
@@ -72,10 +61,13 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Take Errand", "TakeErrand", new { id = item.ID })
+            
+            @*@Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
         </td>
     </tr>
 }
 
 </table>
+</div>

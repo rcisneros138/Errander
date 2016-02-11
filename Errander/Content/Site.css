@@ -4,7 +4,9 @@
     background-color: gainsboro;
     
 }
-
+.GIHSize{
+    font-size:.84em;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -23,4 +25,16 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+.HomeButton{
+    width:120px;
+    height:27px;
+
+}
+.leftoffset{
+    margin-left:60px;
+}
+.JumboButtons{
+    text-align:center;
+    
 }

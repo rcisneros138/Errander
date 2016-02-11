@@ -1,18 +1,22 @@
-﻿@model Errander.Models.Errand
+﻿@*@model Errander.Models.Errand*@
 
 @{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
-    <h1>Errander</h1>
+    <h1 style="text-align:center" >ErrandeR <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></h1>
+    @*<a href="@Url.Action("Index", "Home")" class="navbar-brand">ErrandeR <span class="glyphicon glyphicon-transfer GIHSize" aria-hidden="true"></span> </a>*@
+    <p class="JumboButtons">@Html.ActionLink("Create Errand", "Create", "Errands", null, new { @class = "btn btn-success" })</p>
     
 </div>
+
+<h1 style="text-align: center"> Errands In Your City</h1>
+
 <div>
-    <p>@Html.ActionLink("Create Errand", "Create", "Errands", null, new { @class = "btn btn-default" })</p>
-    <p>@Html.ActionLink("See Errands", "Index", "Errands", null, new { @class = "btn btn-default" })</p>
-    @*<p>@Html.ActionLink("Log in", "Login", "Account", null, new { @class = "btn btn-default" })</p>*@      @*add button to see errands HERE*@
+@Html.Partial("_errands")
 </div>
+
 
    
 
