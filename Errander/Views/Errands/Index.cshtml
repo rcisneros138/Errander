@@ -1,9 +1,13 @@
-﻿@model IEnumerable<Errander.Models.TableViewModel>
+﻿@model IEnumerable<Errander.Models.Errand>
 
 @{
     ViewBag.Title = "Index";
 }
-
+<head>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+   
+</head>
 <h2>Index</h2>
 
 <p>
@@ -14,7 +18,7 @@
 
 <table class="table table table-striped">
     <tr>
-       
+
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -27,7 +31,7 @@
         <th>
             @Html.DisplayNameFor(model => model.City)
         </th>
-       
+
         <th>
             @Html.DisplayNameFor(model => model.AmountOffered)
         </th>
@@ -39,7 +43,7 @@
 
 @foreach (var item in Model) {
     <tr>
-      
+
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
@@ -52,7 +56,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.City)
         </td>
-     
+
         <td>
             $@Html.DisplayFor(modelItem => item.AmountOffered)
         </td>
@@ -62,7 +66,7 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Take Errand", "TakeErrand", new { id = item.ID })
-            
+
             @*@Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
         </td>
@@ -71,3 +75,47 @@
 
 </table>
 </div>
+
+@*<script src="http://maps.googleapis.com/maps/api/js"></script>*@
+
+<script>
+    
+    geocoder = new google.maps.Geocoder();
+    
+function initialize() {
+
+    var mapProp = {
+        center: { lat: 51.508742, lng: -0.120850 },
+        zoom: 5,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    var address ="819 N 15th street, Milwaukee, wi";
+    getCoordinate(address, map);
+    
+}
+
+function getCoordinate(address, Resultmap) {
+    //console.log("here");
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            console.log(results);
+            Resultmap.setCenter(results[0].geometry.location);
+
+            var marker = new google.maps.Marker({
+                map: Resultmap,
+                position: results[0].geometry.location
+
+            });
+        }
+    });
+
+}
+$(document).ready(function(){
+initialize()
+});
+    //google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+
+ <div id="googleMap" style="width:500px;height:380px;"></div>

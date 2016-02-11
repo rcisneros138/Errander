@@ -23,18 +23,14 @@ namespace Errander.Controllers
           
             var currentUserID = User.Identity.GetUserId();
             ApplicationUser currentUser = context.Users.Find(currentUserID);
-            var model = new TableViewModel();
-            model.completedErrands = db.errands.Where(x => x.IsCompleted == true && x.UserId == currentUserID);
-            model.UnclaimedErrandsInUserCity = db.errands.Where(x => x.City == currentUser.City && x.IsCompleted == false && x.InProgress == false).ToList();
-            model.ErrandsUserHasClaimed = db.errands.Where(x => x.AcceptingUserID == currentUserID).ToList();
-            GetUserSubmittedErrands();
-                
-            return View(model.UnclaimedErrandsInUserCity);
+            return View(db.errands.Where(x => x.City == currentUser.City && x.IsCompleted == false && x.InProgress == false).ToList());
         }
 
-        public ActionResult Test()
+        public ActionResult ErrandsCompletedByUser()
         {
-            return View();
+            var currentUserID = User.Identity.GetUserId();
+            return PartialView(db.errands.Where(x => x.AcceptingUserID == currentUserID && x.IsCompleted == true));
+            //return PartialView()
         }
 
         
@@ -80,11 +76,15 @@ namespace Errander.Controllers
 
             return View(errand);
         }
-        
+        public ActionResult ShowErrandsCompletedForUser()
+        {
+            string CurrentUserID = User.Identity.GetUserId();
+            return PartialView(db.errands.Where(x => x.UserId == CurrentUserID && x.IsCompleted == true));
+        }
         public ActionResult GetUserSubmittedErrands()
         {
             string CurrentUserID = User.Identity.GetUserId();
-            return View(db.errands.Where(x => x.UserId == CurrentUserID));
+            return View(db.errands.Where(x => x.UserId == CurrentUserID && x.IsCompleted == false));
         }
         public ActionResult MarkComplete(int? id)
         {
@@ -97,7 +97,7 @@ namespace Errander.Controllers
             errand.IsCompleted = true;
             errand.CompletionTime = DateTime.Now;
             db.SaveChanges();
-            return Redirect("Index");
+            return RedirectToAction("Index","Home");
         }
 
         // GET: Errands/Edit/5
@@ -141,7 +141,7 @@ namespace Errander.Controllers
             Errand errand = db.errands.Find(id);
             errand.InProgress = true;
             errand.AcceptingUserID = User.Identity.GetUserId();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
 
         }
 
@@ -179,9 +179,7 @@ namespace Errander.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Errand errand = db.errands.Find(id);
-            errand.InProgress = true;
-            errand.AcceptingUserID = User.Identity.GetUserId();
-            db.SaveChanges();
+           
             return View(errand);
         }
         [HttpPost, ActionName("TakeErrand")]

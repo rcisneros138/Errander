@@ -1,11 +1,4 @@
 ﻿@model IEnumerable<Errander.Models.Errand>
-@{
-    ViewBag.Title = "ShowErrandsAcceptedByUser";
-}
-
-<h1>Your Errands To Complete</h1>
-
-
 
 <table class="table table table-striped">
     <tr>
@@ -28,6 +21,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NeededBy)
+        </th>
+        <th>
+
         </th>
 
     </tr>
@@ -54,14 +50,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NeededBy)
             </td>
-            
+            <td>
+                @Html.ActionLink("Choose Errand", "TakeErrand", new { Controller = "Errands", id = item.ID }, new { @class = "HomeButton btn btn-success" })
+            </td>
 
 
         </tr>
     }
 </table>
-<div>
-    <h1>Completed Errands</h1>
-    @Html.Action("ErrandsCompletedByUser")
- 
-</div>

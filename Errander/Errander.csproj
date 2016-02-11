@@ -261,6 +261,8 @@
     <Content Include="Views\Errands\ShowErrandsAcceptedByUser.cshtml" />
     <Content Include="Views\Errands\GetUserSubmittedErrands.cshtml" />
     <Content Include="Views\Shared\_CompletedErrands.cshtml" />
+    <Content Include="Views\Errands\ErrandsCompletedByUser.cshtml" />
+    <Content Include="Views\Errands\ShowErrandsCompletedForUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
